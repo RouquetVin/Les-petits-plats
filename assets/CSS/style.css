@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap');
+
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Manrope', sans-serif;
+	background: lightgray;
+}
+
+.banner {
+	background-image: url(../../images/lampos-aritonang.jpg);
+	width: 100%;
+	height: 948.66px;
+	position: relative;
+	background-size: cover;
+	background-position: center;
+}
+
+.logo {
+	display: flex;
+	gap: 5px;
+	position: absolute;
+	top: 51px;
+	left: 69px;
+	color: white;
+	align-items: flex-end;
+}
+
+.logo p {
+	margin: 0;
+	text-transform: uppercase;
+	font-family: 'Anton', sans-serif;
+	font-size: 26px;
+	line-height: 1;
+}
+
+.outer_circle {
+	border-radius: 100%;
+	border: 2px solid white;
+	height: 15px;
+	width: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 2px;
+}
+
+.white_point {
+	background: white;
+	height: 11px;
+	width: 11px;
+	border-radius: 100%;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.search {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: 954px;
+	padding: 0 50px;
+	box-sizing: border-box;
+}
+
+.search h1 {
+	color: #ffd15b;
+	font-weight: 400;
+	font-size: 43px;
+	text-align: center;
+	font-family: 'Anton', sans-serif;
+	margin: 0 0 20px 0;
+}
+
+.search input {
+	height: 72px;
+	width: 100%;
+	max-width: 954px;
+	border-radius: 11px;
+	font-size: 16px;
+	font-weight: 400;
+	border: none;
+	outline: none;
+	padding-left: 35px;
+	box-sizing: border-box;
+	padding-right: 60px;
+	position: relative;
+}
+
+.icone_search_background {
+	background: #1b1b1b;
+	height: 52px;
+	width: 52px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 83.5%;
+	right: 60px;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+
+.icone_search_background:hover {
+	background: #ffd15b;
+	border: none;
+}
+
+.icone_search_background svg {
+	height: 28px;
+	width: 28px;
+	fill: white;
+}
+
+.icone_search_background:hover svg {
+	fill: black;
+}
+
+/* main */
+
+main {
+	max-width: 1280px;
+	margin: auto;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+
+/* btns_search */
+
+.section_btns_search {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+	padding: 0 20px;
+	flex-wrap: wrap;
+}
+
+.section_btns_search h2 {
+	font-size: 21px;
+	font-weight: 400;
+	font-family: 'Anton', sans-serif;
+	margin-bottom: 10px;
+}
+
+.btns_search {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	flex: 1;
+}
+
+.btn_search {
+	height: 56px;
+	width: 100%;
+	max-width: 195px;
+	border-radius: 11px;
+	font-size: 16px;
+	font-weight: 500;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	background: white;
+	border: none;
+	cursor: pointer;
+}
+
+.btn_search i {
+	height: 16px;
+	width: 16px;
+	color: #1b1b1b;
+}
+
+/* Cards styles */
+
+/* Container for all cards */
+.menus_section {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 50px;
+	margin: 60px 20px 100px 20px;
+	box-sizing: border-box;
+}
+
+/* Individual card styles */
+.card {
+	background: white;
+	border-radius: 15px;
+	box-shadow: 0px 4px 34px 10px #0000000a;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	font-size: 14px;
+	font-weight: 400;
+	position: relative;
+	height: auto;
+	height: 731px;
+}
+
+.card img {
+	width: 100%;
+	height: 253px;
+	object-fit: cover;
+}
+
+.card_content {
+	padding: 20px;
+	flex-grow: 1;
+}
+
+.card h2 {
+	margin-top: 10px;
+	font-size: 18px;
+	font-family: 'Anton', sans-serif;
+	font-weight: 400;
+}
+
+.card h3 {
+	font-size: 12px;
+	font-weight: 700;
+	margin: 25px 0 15px 0;
+	color: #7a7a7a;
+}
+
+.description_recipe {
+	color: #1b1b1b;
+	line-height: 1.5;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: auto;
+	width: 100%;
+	max-width: 330px;
+	font-size: 14px;
+	font-size: 400;
+}
+
+.ingredients {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-top: 16px;
+}
+
+.ingredient {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.ingredient_name {
+	color: #1b1b1b;
+	font-size: 14px;
+	font-weight: 500;
+	margin: 0;
+}
+
+.ingredient_quantity {
+	color: #7a7a7a;
+	font-size: 14px;
+	font-weight: 400;
+	margin: 0;
+}
+
+.time_label {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	background: #ffd15b;
+	color: #1b1b1b;
+	padding: 5px 10px;
+	border-radius: 14px;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+/* responsive styles */
+
+/* Media Queries for responsive design */
+
+@media (max-width: 1024px) {
+	.banner {
+		height: 700px;
+	}
+}
+
+@media (max-width: 768px) {
+	.banner {
+		height: 500px;
+	}
+
+	.logo {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.search {
+		padding: 0 30px;
+	}
+
+	.search h1 {
+		font-size: 26px;
+	}
+
+	.search input {
+		height: 64px;
+	}
+
+	.icone_search_background {
+		height: 44px;
+		width: 44px;
+		top: 80.5%;
+		right: 40px;
+	}
+
+	.section_btns_search {
+		flex-direction: column-reverse;
+		align-items: flex-start;
+	}
+
+	.section_btns_search h2 {
+		margin: 20px auto 40px;
+	}
+
+	.btns_search {
+		gap: 10px;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.card {
+		height: auto;
+	}
+
+	.card img {
+		height: 200px;
+	}
+
+	.menus_section {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 20px;
+	}
+}
+
+@media (max-width: 480px) {
+	.logo p {
+		font-size: 20px;
+	}
+
+	.outer_circle {
+		height: 9px;
+		width: 9px;
+	}
+
+	.white_point {
+		height: 5px;
+		width: 5px;
+	}
+
+	.search h1 {
+		font-size: 20px;
+	}
+
+	.search input {
+		height: 62px;
+		font-size: 14px;
+	}
+
+	.icone_search_background {
+		height: 42px;
+		width: 42px;
+		top: 78.5%;
+	}
+
+	.section_btns_search h2 {
+		font-size: 18px;
+	}
+
+	.btn_search {
+		height: 48px;
+		font-size: 14px;
+	}
+
+	.card img {
+		height: 180px;
+	}
+
+	.description_recipe {
+		max-width: 100%;
+	}
+
+	.ingredients {
+		gap: 10px;
+	}
+}
+
+@media (max-width: 361px) {
+	.icone_search_background {
+		top: 82%;
+	}
+}
+
+@media (max-width: 351px) {
+	.logo p {
+		font-size: 18px;
+	}
+
+	.outer_circle {
+		height: 7px;
+		width: 7px;
+	}
+
+	.white_point {
+		height: 3px;
+		width: 3px;
+	}
+
+	.icone_search_background {
+		top: 85%;
+	}
+}
