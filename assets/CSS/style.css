@@ -116,6 +116,7 @@ body {
 	right: 60px;
 	transform: translateY(-50%);
 	cursor: pointer;
+	border: none;
 }
 
 .icone_search_background:hover {
