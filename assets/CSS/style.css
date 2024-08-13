@@ -12,7 +12,7 @@ body {
 .banner {
 	background-image: url(../../images/lampos-aritonang.jpg);
 	width: 100%;
-	height: 948.66px;
+	height: 667px;
 	position: relative;
 	background-size: cover;
 	background-position: center;
@@ -102,6 +102,35 @@ body {
 	padding-right: 60px;
 	position: relative;
 }
+
+/* Cross to clear user input */
+
+.input-container {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+
+.clear-input {
+	position: absolute;
+	right: 80px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	font-size: 22px;
+	display: none;
+	color: #999;
+}
+
+.clear-input:hover {
+	color: #333;
+}
+
+input:focus + .clear-input {
+	display: block;
+}
+
+/* search button */
 
 .icone_search_background {
 	background: #1b1b1b;
@@ -193,6 +222,7 @@ main {
 /* Cards styles */
 
 /* Container for all cards */
+
 .menus_section {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -201,7 +231,20 @@ main {
 	box-sizing: border-box;
 }
 
+.menus_section.empty {
+	margin: 0;
+	padding: 0;
+	height: 0;
+}
+
+.no-recipes-message {
+	text-align: center;
+	font-size: 1.2em;
+	margin: 50px;
+}
+
 /* Individual card styles */
+
 .card {
 	background: white;
 	border-radius: 15px;
@@ -246,6 +289,7 @@ main {
 	line-height: 1.5;
 	display: -webkit-box;
 	-webkit-line-clamp: 4;
+	line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
