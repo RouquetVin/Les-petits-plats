@@ -24,7 +24,7 @@
             <div class="input-container">
                 <label for="search" class="sr-only">Recherche</label>
                 <input type="text" name="search" id="search" placeholder="Rechercher une recette, un ingrédient, ...">
-                <i class="fa fa-times clear-input"></i>
+                <i class="fa fa-times clear-icon"></i>
             </div>
             <button type="button" class="icone_search_background" title="Chercher">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -37,24 +37,41 @@
     <main>
         <section class="section_btns_search">
             <div class="btns_search">
-                <button type="button" class="btn_search">
-                    Ingrédients
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+                <div id="ingredients-container" class="custom-select">
+                    <button type="button" id="ingredients-button" class="btn_search">
+                        Ingrédients
+                        <i id="ingredients-chevron" class="fas fa-chevron-down custom-select-arrow"></i>
+                    </button>
+                    <ul class="custom-options ingredients-options">
 
-                <button type="button" class="btn_search">
-                    Appareils
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+                    </ul>
+                </div>
 
-                <button type="button" class="btn_search">
-                    Ustensiles
-                    <i class="fas fa-chevron-down"></i>
-                </button>
+                <div id="appliances-container" class="custom-select">
+                    <button type="button" id="appliances-button" class="btn_search">
+                        Appareils
+                        <i id="appliances-chevron" class="fas fa-chevron-down custom-select-arrow"></i>
+                    </button>
+                    <ul class="custom-options appliances-options">
+
+                    </ul>
+                </div>
+
+                <div id="ustensils-container" class="custom-select">
+                    <button type="button" id="ustensils-button" class="btn_search">
+                        Ustensiles
+                        <i id="ustensils-chevron" class="fas fa-chevron-down custom-select-arrow"></i>
+                    </button>
+                    <ul class="custom-options ustensils-options">
+
+                    </ul>
+                </div>
             </div>
-            <h2>1500</h2>
+            <h2>1500 recettes</h2>
         </section>
+        <div id="selected-tags" class="selected-tags"></div>
         <section class="menus_section">
+
         </section>
     </main>
     <script type="module" src="./scripts/pages/index.js"></script>
