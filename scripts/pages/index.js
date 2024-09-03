@@ -67,115 +67,82 @@ class MenuApp {
 
 	// Method to check if an ingredient matches a given string
 	doesIngredientMatch(ingredients, query) {
-		for (let i = 0; i < ingredients.length; i++) {
+		let match = false;
+		ingredients.forEach((ingredientObj) => {
 			if (
-				ingredients[i].ingredient
-					.toLowerCase()
-					.includes(query)
+				ingredientObj.ingredient.toLowerCase().includes(query)
 			) {
-				return true;
+				match = true;
 			}
-		}
-		return false;
+		});
+		return match;
 	}
 
 	// Method to filter recipes based on user search input
 	filterBySearch(inputUser) {
 		inputUser = inputUser.toLowerCase();
-		const filteredRecipes = [];
 
-		for (let i = 0; i < this.recipes.length; i++) {
-			const recipe = this.recipes[i];
+		if (inputUser.length < 3) {
+			return this.recipes;
+		}
 
-			if (inputUser.length < 3) {
-				return this.recipes;
-			}
-
-			let matchesSearch =
+		return this.recipes.filter((recipe) => {
+			const matchesSearch =
 				recipe.name.toLowerCase().includes(inputUser) ||
 				this.doesIngredientMatch(
 					recipe.ingredients,
 					inputUser,
-				);
+				) ||
+				recipe.description.toLowerCase().includes(inputUser);
 
-			if (!matchesSearch) {
-				matchesSearch = recipe.description
-					.toLowerCase()
-					.includes(inputUser);
-			}
-
-			if (matchesSearch) {
-				filteredRecipes.push(recipe);
-			}
-		}
-
-		return filteredRecipes;
+			return matchesSearch;
+		});
 	}
 
 	// Method to filter recipes based on selected tags
 	filterByTags(recipes) {
-		let tableau = [];
-
-		for (let i = 0; i < recipes.length; i++) {
-			let recipe = recipes[i];
+		return recipes.filter((recipe) => {
 			let matchesTags = true;
 
-			if (this.selectedTags.length > 0) {
-				for (let k = 0; k < this.selectedTags.length; k++) {
-					let tag = this.selectedTags[k].tag.toLowerCase();
-					let category = this.selectedTags[k].category;
-					let tagMatch = false;
+			this.selectedTags.forEach((tagObj) => {
+				const tag = tagObj.tag.toLowerCase();
+				const category = tagObj.category;
 
-					// Check if the tag matches an ingredient
-					if (category === 'ingredient') {
-						tagMatch = this.doesIngredientMatch(
-							recipe.ingredients,
-							tag,
-						);
-					}
+				let tagMatch = false;
 
-					// Check if the tag matches an appliance
-					if (category === 'appliance' && !tagMatch) {
-						if (
-							recipe.appliance
-								.toLowerCase()
-								.includes(tag)
-						) {
-							tagMatch = true;
-						}
-					}
+				// Check if the tag matches an ingredient
+				if (category === 'ingredient') {
+					tagMatch = this.doesIngredientMatch(
+						recipe.ingredients,
+						tag,
+					);
+				}
 
-					// Check if the tag matches a ustensil
-					if (category === 'ustensils' && !tagMatch) {
-						for (
-							let j = 0;
-							j < recipe.ustensils.length;
-							j++
-						) {
-							if (
-								recipe.ustensils[j]
-									.toLowerCase()
-									.includes(tag)
-							) {
-								tagMatch = true;
-								break;
-							}
-						}
-					}
-
-					if (!tagMatch) {
-						matchesTags = false;
-						break;
+				// Check if the tag matches an appliance
+				if (category === 'appliance' && !tagMatch) {
+					if (
+						recipe.appliance.toLowerCase().includes(tag)
+					) {
+						tagMatch = true;
 					}
 				}
-			}
 
-			if (matchesTags) {
-				tableau.push(recipe);
-			}
-		}
+				// Check if the tag matches a utensil
+				if (category === 'ustensils' && !tagMatch) {
+					recipe.ustensils.forEach((ustensil) => {
+						if (ustensil.toLowerCase().includes(tag)) {
+							tagMatch = true;
+						}
+					});
+				}
 
-		return tableau;
+				if (!tagMatch) {
+					matchesTags = false;
+				}
+			});
+
+			return matchesTags;
+		});
 	}
 
 	// Method to combine search and tag filters
