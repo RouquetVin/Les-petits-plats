@@ -93,13 +93,15 @@ class MenuApp {
 
 			let matchesSearch =
 				recipe.name.toLowerCase().includes(inputUser) ||
-				recipe.description.toLowerCase().includes(inputUser);
-
-			if (!matchesSearch) {
-				matchesSearch = this.doesIngredientMatch(
+				this.doesIngredientMatch(
 					recipe.ingredients,
 					inputUser,
 				);
+
+			if (!matchesSearch) {
+				matchesSearch = recipe.description
+					.toLowerCase()
+					.includes(inputUser);
 			}
 
 			if (matchesSearch) {
@@ -120,25 +122,31 @@ class MenuApp {
 
 			if (this.selectedTags.length > 0) {
 				for (let k = 0; k < this.selectedTags.length; k++) {
-					let tag = this.selectedTags[k].toLowerCase();
+					let tag = this.selectedTags[k].tag.toLowerCase();
+					let category = this.selectedTags[k].category;
 					let tagMatch = false;
 
 					// Check if the tag matches an ingredient
-					tagMatch = this.doesIngredientMatch(
-						recipe.ingredients,
-						tag,
-					);
-
-					// Check if the tag matches an appliance
-					if (
-						!tagMatch &&
-						recipe.appliance.toLowerCase().includes(tag)
-					) {
-						tagMatch = true;
+					if (category === 'ingredient') {
+						tagMatch = this.doesIngredientMatch(
+							recipe.ingredients,
+							tag,
+						);
 					}
 
-					// Check if the tag matches a utensil
-					if (!tagMatch) {
+					// Check if the tag matches an appliance
+					if (category === 'appliance' && !tagMatch) {
+						if (
+							recipe.appliance
+								.toLowerCase()
+								.includes(tag)
+						) {
+							tagMatch = true;
+						}
+					}
+
+					// Check if the tag matches a ustensil
+					if (category === 'ustensils' && !tagMatch) {
 						for (
 							let j = 0;
 							j < recipe.ustensils.length;
@@ -192,8 +200,6 @@ class MenuApp {
 	updateRecipesCount(count) {
 		if (count < 2) {
 			this.recipesCountElement.textContent = `${count} recette`;
-		} else if (count === 50) {
-			this.recipesCountElement.textContent = `1500 recettes`;
 		} else {
 			this.recipesCountElement.textContent = `${count} recettes`;
 		}
@@ -232,51 +238,40 @@ class MenuApp {
 	}
 
 	// Method to add a tag to the selected tags list
-	addTag(tag) {
+	addTag(tag, category) {
 		let alreadySelected = false;
 		for (let i = 0; i < this.selectedTags.length; i++) {
-			if (this.selectedTags[i] === tag) {
+			if (
+				this.selectedTags[i].tag === tag &&
+				this.selectedTags[i].category === category
+			) {
 				alreadySelected = true;
 				break;
 			}
 		}
 
 		if (!alreadySelected) {
-			this.selectedTags[this.selectedTags.length] = tag;
+			this.selectedTags.push({ tag, category });
 			this.renderTags();
 			this.performSearch();
 		}
 	}
 
 	// Method to remove a tag from the selected tags list
-	removeTag(tag) {
-		let index = -1;
-		for (let i = 0; i < this.selectedTags.length; i++) {
-			if (this.selectedTags[i] === tag) {
-				index = i;
-				break;
-			}
-		}
-
-		if (index > -1) {
-			for (
-				let i = index;
-				i < this.selectedTags.length - 1;
-				i++
-			) {
-				this.selectedTags[i] = this.selectedTags[i + 1];
-			}
-			this.selectedTags.length--;
-			this.renderTags();
-			this.performSearch();
-		}
+	removeTag(tagToRemove, category) {
+		this.selectedTags = this.selectedTags.filter(
+			(tag) =>
+				tag.tag !== tagToRemove || tag.category !== category,
+		);
+		this.renderTags();
+		this.performSearch();
 	}
 
 	// Method to display selected tags in the interface
 	renderTags() {
 		this.tagsContainer.innerHTML = '';
 		for (let i = 0; i < this.selectedTags.length; i++) {
-			const tag = this.selectedTags[i];
+			const { tag, category } = this.selectedTags[i];
 
 			const tagElement = document.createElement('span');
 			tagElement.classList.add('tag');
@@ -289,7 +284,7 @@ class MenuApp {
 			removeIcon.classList.add('fa', 'fa-times', 'remove-icon');
 
 			tagElement.addEventListener('click', () => {
-				this.removeTag(tag);
+				this.removeTag(tag, category);
 			});
 
 			tagElement.appendChild(tagText);
@@ -340,7 +335,7 @@ class MenuApp {
 	}
 
 	// Method to display available filter options
-	renderFilterOptions(container, options) {
+	renderFilterOptions(container, options, category) {
 		container.innerHTML = '';
 
 		const searchContainer = document.createElement('div');
@@ -363,18 +358,26 @@ class MenuApp {
 
 		container.appendChild(searchContainer);
 
-		const customOptionsContainer = document.createElement('div');
+		const customOptionsContainer = document.createElement('ul');
 		customOptionsContainer.classList.add(
 			'custom-options-container',
 		);
 
 		for (const option in options) {
-			if (!this.selectedTags.includes(option.toLowerCase())) {
+			if (
+				option &&
+				!this.selectedTags.some(
+					(tag) =>
+						tag.tag.toLowerCase() ===
+							option.toLowerCase() &&
+						tag.category === category,
+				)
+			) {
 				const li = document.createElement('li');
 				li.textContent = this.capitalizeFirstLetter(option);
 				li.classList.add('filter-option');
 				li.addEventListener('click', () => {
-					this.addTag(option);
+					this.addTag(option, category);
 					searchInput.value = '';
 					this.updateFilterOptions(
 						this.filterRecipes(this.searchInput.value),
@@ -388,7 +391,6 @@ class MenuApp {
 
 		container.appendChild(customOptionsContainer);
 
-		// Add an event listener for the search field
 		searchInput.addEventListener('input', () => {
 			const filter = searchInput.value.toLowerCase();
 			const optionItems =
@@ -406,7 +408,6 @@ class MenuApp {
 				searchInput.value.length > 0 ? 'block' : 'none';
 		});
 
-		// Add an event listener for the delete icon
 		clearIcon.addEventListener('click', () => {
 			searchInput.value = '';
 			clearIcon.style.display = 'none';
@@ -426,7 +427,6 @@ class MenuApp {
 		const button = event.currentTarget;
 		const customSelect = button.parentElement;
 		const container = button.nextElementSibling;
-		const chevron = button.querySelector('i');
 
 		if (customSelect.classList.contains('open')) {
 			customSelect.classList.remove('open');

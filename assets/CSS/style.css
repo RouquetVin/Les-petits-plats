@@ -258,7 +258,6 @@ main {
 		opacity 0.3s ease;
 	visibility: hidden;
 	opacity: 0;
-	padding: 0;
 	scrollbar-width: none;
 	border-top: none;
 	-ms-overflow-style: none;
@@ -323,6 +322,7 @@ main {
 	width: 100%;
 	overflow: hidden;
 	margin-top: 15px;
+	padding: 0;
 }
 
 .filter-option {

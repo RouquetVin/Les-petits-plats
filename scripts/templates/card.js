@@ -17,7 +17,8 @@ export class CardTemplate {
 
 		// Create and set up the image element
 		const img = this.createElement('img');
-		img.src = `./images/${image}`;
+		const webpImage = image.replace('.jpg', '.webp');
+		img.src = `./images/${webpImage}`;
 		img.alt = name;
 
 		// Create and set up the time label element
