@@ -250,7 +250,7 @@ class MenuApp {
 			const removeIcon = document.createElement('i');
 			removeIcon.classList.add('fa', 'fa-times', 'remove-icon');
 
-			tagElement.addEventListener('click', () => {
+			removeIcon.addEventListener('click', () => {
 				this.removeTag(tag, category);
 			});
 
