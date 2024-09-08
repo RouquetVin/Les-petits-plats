@@ -87,15 +87,20 @@ class MenuApp {
 		}
 
 		return this.recipes.filter((recipe) => {
-			const matchesSearch =
+			const matchesNameOrIngredient =
 				recipe.name.toLowerCase().includes(inputUser) ||
 				this.doesIngredientMatch(
 					recipe.ingredients,
 					inputUser,
-				) ||
-				recipe.description.toLowerCase().includes(inputUser);
+				);
 
-			return matchesSearch;
+			if (!matchesNameOrIngredient) {
+				return recipe.description
+					.toLowerCase()
+					.includes(inputUser);
+			}
+
+			return matchesNameOrIngredient;
 		});
 	}
 
