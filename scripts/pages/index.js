@@ -196,7 +196,7 @@ class MenuApp {
 	clearInput() {
 		this.searchInput.value = '';
 		this.clearInputButton.style.display = 'none';
-		const filteredRecipes = this.filterRecipes('');
+		const filteredRecipes = this.filterRecipes();
 		this.renderRecipes(filteredRecipes);
 		this.updateFilterOptions(filteredRecipes);
 	}
@@ -211,22 +211,9 @@ class MenuApp {
 
 	// Method to add a tag to the selected tags list
 	addTag(tag, category) {
-		let alreadySelected = false;
-		for (let i = 0; i < this.selectedTags.length; i++) {
-			if (
-				this.selectedTags[i].tag === tag &&
-				this.selectedTags[i].category === category
-			) {
-				alreadySelected = true;
-				break;
-			}
-		}
-
-		if (!alreadySelected) {
-			this.selectedTags.push({ tag, category });
-			this.renderTags();
-			this.performSearch();
-		}
+		this.selectedTags.push({ tag, category });
+		this.renderTags();
+		this.performSearch();
 	}
 
 	// Method to remove a tag from the selected tags list
