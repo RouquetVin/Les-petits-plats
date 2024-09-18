@@ -13,7 +13,6 @@ class MenuApp {
 			'main .section_btns_search h2',
 		);
 		this.main = document.querySelector('main');
-		this.tagList = [];
 		this.selectedTags = [];
 		this.tagsContainer = document.querySelector('#selected-tags');
 		this.ingredientsOptions = document.querySelector(
